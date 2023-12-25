@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .grid-container{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        grid-auto-rows: 100px;
+        grid-template-areas:
+        ". a a ."
+        ". b b ."
+        ". c c .";
+    }
+
+    .notification{
+        grid-area: b;
+        /* height: 50px; */
+        justify-self: center;
+    }
+
+    form{
+        text-align: center;
+    }
+
+    .login_header{
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+</style>
+{% endblock %}
+
+{% block title %} login {% endblock %}
+{% block nav %}
+<li class="nav-item">
+    <a class="nav-link" href="{{url_for('register')}}">Sign Up</a>
+</li>
+{% endblock %}
+{% block content %}
+    <h1 class="login_header">Login</h1>
+    <section class="section">
+        <div class="columns">
+            <div class="column is-offset-4 is-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            {% set message_class = 'is-success' %}
+
+                            {% if category == 'error' %}
+                                {% set message_class = "is-danger" %}
+                            {% endif %}
+                            <div class="notification {{message_class}}" style="text-align: center;">
+                                {{message}}
+                            </div>
+                            
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="#" method="POST">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" name="name" placeholder="name@example.com">
+                        <label for="floatingInput">Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                        <label for="password">Password</label>
+                    </div>
+                    <p><input class="btn btn-primary" type="submit" value="submit"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    
+
+{% endblock %}
+

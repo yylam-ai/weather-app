@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .columns{
+        text-align: center;
+    }
+
+    .signup_header{
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+<h1 class="signup_header">Sign Up</h1>
+<section class="section">
+    <div class="columns">
+        <div class="column is-offset-4 is-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    {% set message_class = 'is-success' %}
+                    {% if category == 'error' %}
+                        {% set message_class = 'is-danger' %}
+                    {% endif %}
+                    <div class="notification {{message_class}}" style="text-align: center;">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+            <form action="signup" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" name="register_username" class="form-control" id="username" placeholder="name@example.com">
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="register_password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="cfm_password" class="form-control" id="floatingPassword" placeholder="cfm_Password">
+                    <label for="floatingPassword">Confirm Password</label>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="submit">
+            </form>
+        </div>
+    </div>
+</section>
+    
+
+{% endblock %}
